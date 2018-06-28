@@ -17,8 +17,17 @@
 <div style="display:none">
     {{gh-file-input
         multiple=true
+        name="inputImages"
         action=(action onImageFilesSelected)
         accept=imageMimeTypes}}
+</div>
+
+<div style="display:none">
+    {{gh-file-input
+        name="inputVideos"
+        multiple=true
+        action=(action onVideoFilesSelected)
+        accept=videoMimeTypes}}
 </div>
 
 {{#if _showUnsplash}}

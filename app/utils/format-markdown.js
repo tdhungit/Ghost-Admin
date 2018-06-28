@@ -2,6 +2,7 @@
 import cajaSanitizers from './caja-sanitizers';
 import markdownit from 'npm:markdown-it';
 import markdownitFootnote from 'npm:markdown-it-footnote';
+import markdownitHTML5Embed from 'npm:markdown-it-html5-embed';
 import markdownitLazyHeaders from 'npm:markdown-it-lazy-headers';
 import markdownitMark from 'npm:markdown-it-mark';
 
@@ -46,6 +47,7 @@ let md = markdownit({
     linkify: true
 })
     .use(markdownitFootnote)
+    .use(markdownitHTML5Embed)
     .use(markdownitLazyHeaders)
     .use(markdownitMark)
     .use(markdownitNamedHeaders);

@@ -24,12 +24,14 @@ export default Component.extend(ShortcutsMixin, {
     // Public attributes
     autofocus: false,
     imageMimeTypes: null,
+    videoMimeTypes: null,
     isFullScreen: false,
     markdown: null,
     options: null,
     placeholder: '',
     showMarkdownHelp: false,
     uploadedImageUrls: null,
+    uploadedVideoUrls: null,
 
     enableSideBySide: true,
     enablePreview: true,
@@ -48,11 +50,13 @@ export default Component.extend(ShortcutsMixin, {
     _statusbar: null,
     _toolbar: null,
     _uploadedImageUrls: null,
+    _uploadedVideoUrls: null,
 
     // Closure actions
     onChange() {},
     onFullScreenToggle() {},
     onImageFilesSelected() {},
+    onVideoFilesSelected() {},
     onPreviewToggle() {},
     onSplitScreenToggle() {},
 
@@ -77,6 +81,14 @@ export default Component.extend(ShortcutsMixin, {
                     },
                     className: 'fa fa-picture-o',
                     title: 'Upload Image(s)'
+                },
+                {
+                    name: 'video',
+                    action: () => {
+                        this._openVideoFileDialog();
+                    },
+                    className: 'fa fa-file-video-o',
+                    title: 'Upload Video(s)'
                 },
                 '|',
                 {
@@ -637,7 +649,18 @@ export default Component.extend(ShortcutsMixin, {
 
         // trigger the dialog via gh-file-input, when a file is selected it will
         // trigger the onImageFilesSelected closure action
-        this.$('input[type="file"]').click();
+        this.$('input[name="inputImages"]').click();
+    },
+
+    _openVideoFileDialog() {
+        this._videoInsertSelection = {
+            anchor: this._editor.codemirror.getCursor('anchor'),
+            head: this._editor.codemirror.getCursor('head')
+        };
+
+        // trigger the dialog via gh-file-input, when a file is selected it will
+        // trigger the onVideoFilesSelected closure action
+        this.$('input[name="inputVideos"]').click();
     },
 
     // wrap SimpleMDE's built-in preview toggle so that we can trigger a closure

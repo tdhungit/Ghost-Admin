@@ -7,6 +7,7 @@ import {run} from '@ember/runloop';
 import {inject as service} from '@ember/service';
 
 const {debounce} = run;
+const VIDEO_EXTENSIONS = ['flv', 'mp4', 'avi'];
 
 export default Component.extend({
     ui: service(),
@@ -21,15 +22,19 @@ export default Component.extend({
     navIsClosed: false,
 
     // Internal attributes
+    isUploadVideos: false,
     droppedFiles: null,
     headerClass: '',
     headerHeight: 0,
     imageExtensions: IMAGE_EXTENSIONS,
     imageMimeTypes: IMAGE_MIME_TYPES,
+    videoExtensions: VIDEO_EXTENSIONS,
+    videoMimeTypes: 'video/x-flv,video/mp4,video/x-msvideo',
     isDraggedOver: false,
     isFullScreen: false,
     isSplitScreen: false,
     uploadedImageUrls: null,
+    uploadedVideoUrls: null,
 
     // Private
     _dragCounter: 0,
@@ -86,6 +91,14 @@ export default Component.extend({
             // clear the file references before upload actions can be triggered
             let files = Array.from(fileList);
             this.set('droppedFiles', files);
+            this.set('isUploadVideos', false);
+            resetInput();
+        },
+
+        uploadVideos(fileList, resetInput) {
+            let files = Array.from(fileList);
+            this.set('droppedFiles', files);
+            this.set('isUploadVideos', true);
             resetInput();
         },
 
