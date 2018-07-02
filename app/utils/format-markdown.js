@@ -47,7 +47,10 @@ let md = markdownit({
     linkify: true
 })
     .use(markdownitFootnote)
-    .use(markdownitHTML5Embed)
+    .use(markdownitHTML5Embed, {
+        useImageSyntax: true,
+        useLinkSyntax: true,
+    })
     .use(markdownitLazyHeaders)
     .use(markdownitMark)
     .use(markdownitNamedHeaders);
